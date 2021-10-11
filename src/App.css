@@ -1,9 +1,10 @@
 .App {
   text-align: center;
+
 }
 
 .App-logo {
-  height: 40vmin;
+  height: 15vmin;
   pointer-events: none;
 }
 
@@ -20,13 +21,37 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  color: #FFF;
 }
 
-.App-link {
-  color: #61dafb;
+.App label{
+
+  margin-left: -355px;
+  color:#C9C9C9 ;
+  font-weight: 400;
+  margin-top: 9px;
 }
+
+.App input ,select  {
+  border: 1px solid #FFF;
+  width: 400px;
+  height: 30px;
+  border-radius: 4px;
+  outline: none; 
+}
+
+.App-bnt {
+
+  border: 1px solid #38F29B;
+  width: 200px;
+  height: 5vmin;
+  border-radius: 4px;
+  margin-top: 2%;
+  background-color: #38F29B;
+  color: #252626;
+}
+
+
 
 @keyframes App-logo-spin {
   from {
@@ -35,4 +60,21 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+
+
+.Service {
+  background-color: #C9C9C9;
+  height: 100vh
+
+}
+
+
+.Service-Header{
+  background-color: #FEA443;
+}
+
+.Service-Header button{
+  float: right;
 }
