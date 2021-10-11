@@ -10,13 +10,17 @@ function Home(){
     function logout(){
 
     firebase.auth().signOut()
-            history.push("/")
+    
+    window.electron.exitWindow()
 
     }
 
 const open = () => {
     window.electron.openWindow()
 }
+
+
+
 
     return(
      
@@ -32,7 +36,7 @@ const open = () => {
             </li>
 
             <li>
-            <button onClick={open}>atendimentos</button>
+            <button  onClick={open}>atendimentos</button>
 
             </li>
         </ul>

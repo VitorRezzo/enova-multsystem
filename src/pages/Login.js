@@ -9,28 +9,42 @@ import firebase from '../config/Firebase';
 function Login({history}) { 
 
 
-
-
-  
-
   async function Submit ( e ) {
       e.preventDefault();
   try{
    await firebase.auth().signInWithEmailAndPassword(e.target.email.value,e.target.password.value)
-   
-    history.push("/Home")
+  
+   window.electron.openhomeWindow()
   }catch(error){
     console.log(error)
   }
   
   }
 
+  const exit = () => {
+    window.electron.exitWindow()
+}
 
+const min = () => {
+  window.electron.minWindow()
+}
 
   return (
+
+
+
+
     <div className="App">
+
+        <div className="App-header">
+            <header>
+            <button onClick={exit} className="exit"></button>
+            <button onClick={min} className="minimize"></button>
+             
+            </header>
+        </div>
     
-        <form onSubmit={Submit} className="App-header">
+        <form onSubmit={Submit} className="App-form">
         
         <img src={logo} className="App-logo" alt="logo" />
         
