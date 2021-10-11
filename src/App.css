@@ -1,10 +1,10 @@
 .App {
-  text-align: center;
-
+ background-color: #FEA443;
+  
 }
 
 .App-logo {
-  height: 20vmin;
+  height: 22vmin;
   pointer-events: none;
 }
 
@@ -15,8 +15,7 @@
 }
 .App-header{
   min-height: 4vh;
-  background-color:#282c34;
-  -webkit-app-region: drag;
+  -webkit-app-region: drag; 
 }
 
 .App-header button {
@@ -24,7 +23,7 @@
   margin: 2px;
   width: 20px;
   height: 10px;
-  border: 1px solid #282c34;
+  border: 1px solid #FFFF;
   border-radius: 5px;
   -webkit-app-region: no-drag;
 }
@@ -37,42 +36,7 @@ background-color: darkred;
   background-color: goldenrod;
 }
 
-.App-form {
-  background-color: slategrey;
-  min-height: 96vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: #FFF;
-}
 
-.App label{
-
-  margin-left: -270px;
-  color:#C9C9C9 ;
-  font-weight: 400;
-  margin-top: 9px;
-}
-
-.App input ,select  {
-  border: 1px solid #FFF;
-  width: 80%;
-  height: 30px;
-  border-radius: 4px;
-  outline: none; 
-}
-
-.App-bnt {
-
-  border: 1px solid #38F29B;
-  width: 200px;
-  height: 8vmin;
-  border-radius: 4px;
-  margin-top: 5%;
-  background-color: #38F29B;
-  color: #252626;
-}
 
 
 

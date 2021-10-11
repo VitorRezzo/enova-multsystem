@@ -12,7 +12,7 @@ let homeWindow;
 
 function createWindow() {
   
-  mainWindow = new BrowserWindow({width: 400, height: 400,  
+  mainWindow = new BrowserWindow({width: 350, height: 460,  
     frame: false,
    resizable:false,
     webPreferences: { 
@@ -91,5 +91,6 @@ ipcMain.on('open-homeWindow', (event,arg) => {
 
 ipcMain.on('exit-homeWindow', (event,arg) => {
  mainWindow.show();
+ homeWindow.hide();
 })
 

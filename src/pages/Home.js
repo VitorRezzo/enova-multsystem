@@ -11,7 +11,7 @@ function Home(){
 
     firebase.auth().signOut()
     
-    window.electron.exitWindow()
+    window.electron.exithomeWindow()
 
     }
 
