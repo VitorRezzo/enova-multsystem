@@ -1,5 +1,5 @@
 import React from 'react';
-import firebase,{firestore} from '../config/Firebase';
+import firebase,{firestore} from '../../config/Firebase';
 
 
 function UserCad(){

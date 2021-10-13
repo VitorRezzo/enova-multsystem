@@ -1,5 +1,5 @@
 import React from 'react';
-import firebase from '../config/Firebase';
+import firebase from '../../config/Firebase';
 import {useHistory} from 'react-router-dom';
 import { Link} from 'react-router-dom';
 
@@ -36,8 +36,7 @@ const open = () => {
             </li>
 
             <li>
-            <button  onClick={open}>atendimentos</button>
-
+            <a   onClick={open}>atendimentos</a>
             </li>
         </ul>
 

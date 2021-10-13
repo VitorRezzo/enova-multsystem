@@ -1,7 +1,7 @@
-import Login from './pages/Login.js';
-import Home from './pages/Home.js';
-import UserCad from './pages/UserCad.js';
-import ServiceOs from './pages/ServiceOS.js';
+import Login from './pages/Login/Login.js';
+import Home from './pages/Home/Home.js';
+import UserCad from './pages/UserCad/UserCad.js';
+import ServiceOs from './pages/ServiceOS/ServiceOS.js';
 
 import { BrowserRouter as Router,  Route} from 'react-router-dom';
 import React from 'react';

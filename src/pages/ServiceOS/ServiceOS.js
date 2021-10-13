@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react';
-import '../App.css';
-import {firestore} from '../config/Firebase';
+
+import {firestore} from '../../config/Firebase';
 
 
 function ServiceOs(){
@@ -77,13 +77,13 @@ function ServiceOs(){
         
     return(
 
-        <div className="Service" >
-                <header className="Service-Header">
+        <div >
+                <header >
             
                 <h1>Cadastro Atendimentos</h1>
                 </header>
 
-                <div className="Service-Form">
+                <div >
                     <form onSubmit={Submit} >
                         <label>OS: </label>
                         <input name="os" type="number" placeholder=""  required/>
@@ -116,7 +116,7 @@ function ServiceOs(){
                         <input name="endereco" type="text" placeholder=""  required/>
                         <label>Localização: </label>
                         <input name="localizacao" type="text" placeholder=""  />
-                        <button type="submit"  className="App-bnt">Enviar</button>
+                        <button type="submit"  >Enviar</button>
                     </form>
                 </div>
         
