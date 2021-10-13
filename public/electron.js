@@ -12,9 +12,10 @@ let homeWindow;
 
 function createWindow() {
   
-  mainWindow = new BrowserWindow({width: 350, height: 460,  
+  mainWindow = new BrowserWindow({width: 300, height: 460,  
     frame: false,
-   resizable:false,
+    transparent: true,
+    resizable:false,
     webPreferences: { 
       contextIsolation: true, 
       enableRemoteModule: false,
@@ -22,7 +23,7 @@ function createWindow() {
   }});
 
    
-  homeWindow = new BrowserWindow({ show:false,webPreferences: { 
+  homeWindow = new BrowserWindow({   show:false,webPreferences: { 
     contextIsolation: true, 
     enableRemoteModule: false,
     preload: path.join(__dirname, "preload.js") 

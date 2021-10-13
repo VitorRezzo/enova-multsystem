@@ -9,27 +9,38 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
-import green from '@material-ui/core/colors/green';
+import orange from '@material-ui/core/colors/orange';
 import React,{useState} from 'react';
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import InputLabel from '@material-ui/core/InputLabel';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import AccountCircle from '@material-ui/icons/AccountCircle';
 import IconButton from '@material-ui/core/IconButton';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import { borderRadius, color } from '@material-ui/system';
+import { withStyles } from '@material-ui/core/styles';
 
 
 function Login() { 
 
-const theme = createTheme({
- 
-  palette: {
-    secondary: {
-      main: green[600],
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: orange[400], //this overide blue color
+        
+      },
+      text:{
+        secondary:orange[200],
+        
+      },
+      
     },
-  },
-});
+  });
+  
+
+
 
 
 
@@ -50,7 +61,7 @@ const theme = createTheme({
   }
 
   const exit = () => {
-    window.electron.exithomeWindow()
+    window.electron.exitWindow()
 }
 
 const min = () => {
@@ -58,29 +69,17 @@ const min = () => {
 }
 
   return (
+    
+    
+    <ThemeProvider theme={theme}>
+    <Container  component="main" maxWidth="xs" sx={{ borderRadius: 2, background:  '#293443'}} >
 
-
-
-        <div >
-
-        <div  className="App-header">
-          <header>
-            <button onClick={exit} className="exit"></button>
-            <button onClick={min} className="minimize"></button>
-             
-            </header>
-
-     </div>
-          
-     
-   
-   
-
-   
-
-    <Container component="main" maxWidth="xs" sx={{background: 'linear-gradient(45deg, #2B3240 50%, #FFFF 45%)',}} >
-  
-    <CssBaseline />
+        <div className="App-header" >
+          <Grid>
+            <Button onClick={exit}  >x</Button>
+            <Button onClick={min}   >--</Button>
+            </Grid>
+        </div>
       
         <Box
           sx={{
@@ -88,7 +87,7 @@ const min = () => {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            height:'96vh',
+            height: '80vh'
           }}
         >
       <Grid  sx={{ mt: 1, mb: 1 }}>
@@ -98,46 +97,50 @@ const min = () => {
             
             <TextField
               margin="normal"
-              required
+              required 
               fullWidth
+              placeholder="enova@enovaenergia.com.br"
               id="email"
               type="email"
               label="Email"
               name="email"
               autoComplete="email"
-              autoFocus
-              variant="standard"
-               size="small"
+              size="small"
+              color="primary"
+              focused
+           
             />
 
             <TextField
               margin="normal"
               required
               fullWidth
+              placeholder="******"
               name="password"
               label="Senha"
               type="password"
               id="password"
-              variant="standard"
               autoComplete="current-password"
               size="small"
+              color="primary"
+              focused
             />
             
             <Button
               type="submit"
-              fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-              color='secondary'
+              sx={{ mt: 2, mb: 1,width:'150px', marginLeft:"24%" ,marginRight:"25%", borderRadius:3,  background: 'linear-gradient(to bottom right, #F2B705 10%, #F28705 60% )'}}
+              
             >
-              ACESSAR
+              ENTRAR
             </Button>
 
           </Box>
+          
         </Box>
      </Container>  
-    
-    </div>
+     </ThemeProvider>
+   
     
   );
   

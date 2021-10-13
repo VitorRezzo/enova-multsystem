@@ -28,17 +28,6 @@
   -webkit-app-region: no-drag;
 }
 
-.exit{
-background-color: darkred;
-}
-
-.minimize{
-  background-color: goldenrod;
-}
-
-
-
-
 
 @keyframes App-logo-spin {
   from {
