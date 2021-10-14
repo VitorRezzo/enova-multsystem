@@ -77,21 +77,22 @@ ipcMain.on('min-window', () => {
 })
 
 
-ipcMain.on('open-window', (event,arg) => {
+ipcMain.on('open-window', () => {
   serviceOSWindow.show();
 })
 
 
-ipcMain.on('open-homeWindow', (event,arg) => {
-  event.preventDefault(); 
+ipcMain.on('open-homeWindow', () => {
+   
   homeWindow.show();
   mainWindow.hide();
   homeWindow.maximize();
 })
 
 
-ipcMain.on('exit-homeWindow', (event,arg) => {
- mainWindow.show();
- homeWindow.hide();
+ipcMain.on('exit-homeWindow', () => {
+ mainWindow.reload();
+  mainWindow.show();
+  homeWindow.hide();
 })
 

@@ -1,11 +1,10 @@
 import React from 'react';
 import firebase from '../../config/Firebase';
-import {useHistory} from 'react-router-dom';
-import { Link} from 'react-router-dom';
+
 
 
 function Home(){
-    const history = useHistory();
+
     
     function logout(){
 
@@ -31,12 +30,12 @@ const open = () => {
             <nav>
         <ul>
             <li>
-                <Link to="/UserCad" target="_blank">Usuarios</Link>
+                <button to="/UserCad" target="_blank">Usuarios</button>
                 
             </li>
 
             <li>
-            <a   onClick={open}>atendimentos</a>
+            <button    onClick={open}>atendimentos</button >
             </li>
         </ul>
 

@@ -19,7 +19,7 @@ const TextFieldNew = styled(TextField)({
   },
   '& .MuiOutlinedInput-root': {
     '& fieldset': {
-      border: 'solid 1px #F2B138',
+     border: 'solid 1px #F2B138',
       borderRadius:'10px',
      
     },
@@ -27,7 +27,7 @@ const TextFieldNew = styled(TextField)({
       borderColor: '#F2B138',
     },
     '&.Mui-focused fieldset': {
-      borderColor: '#F2B138',
+    borderColor: '#F2B138',
     },
   },
 });
