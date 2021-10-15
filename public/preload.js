@@ -11,6 +11,8 @@ contextBridge.exposeInMainWorld('electron', {
 
 
   minWindow: () => ipcRenderer.send('min-window'),
+  minWindowhome: () => ipcRenderer.send('min-windowHome'),
+
   
   exitWindow: () => ipcRenderer.send('exit-window'),
 

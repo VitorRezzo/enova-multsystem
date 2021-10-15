@@ -23,7 +23,11 @@ function createWindow() {
   }});
 
    
-  homeWindow = new BrowserWindow({   show:false,webPreferences: { 
+  homeWindow = new BrowserWindow({
+    frame: false,
+    show:false,
+    resizable:false,
+    webPreferences: { 
     contextIsolation: true, 
     enableRemoteModule: false,
     preload: path.join(__dirname, "preload.js") 
@@ -76,6 +80,9 @@ ipcMain.on('min-window', () => {
   mainWindow.minimize();
 })
 
+ipcMain.on('min-windowHome', () => {
+  homeWindow.minimize();
+})
 
 ipcMain.on('open-window', () => {
   serviceOSWindow.show();
@@ -85,13 +92,14 @@ ipcMain.on('open-window', () => {
 ipcMain.on('open-homeWindow', () => {
    
   homeWindow.show();
-  mainWindow.hide();
   homeWindow.maximize();
+  mainWindow.hide();
+  
 })
 
 
 ipcMain.on('exit-homeWindow', () => {
- mainWindow.reload();
+  mainWindow.reload();
   mainWindow.show();
   homeWindow.hide();
 })
