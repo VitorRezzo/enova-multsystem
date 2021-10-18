@@ -6,13 +6,14 @@ const path = require('path');
 const url = require('url');
 const isDev = require('electron-is-dev');
 
-let mainWindow;
+let loginWindow;
 let serviceOSWindow;
 let homeWindow;
+let userCadWindow;
 
 function createWindow() {
   
-  mainWindow = new BrowserWindow({width: 300, height: 460,  
+  loginWindow = new BrowserWindow({width: 300, height: 460,  
     frame: false,
     transparent: true,
     resizable:false,
@@ -26,6 +27,7 @@ function createWindow() {
   homeWindow = new BrowserWindow({
     frame: false,
     show:false,
+    transparent: true, 
     resizable:false,
     webPreferences: { 
     contextIsolation: true, 
@@ -33,26 +35,43 @@ function createWindow() {
     preload: path.join(__dirname, "preload.js") 
 } });
   
-  serviceOSWindow = new BrowserWindow({width: 400, height: 380, parent: homeWindow ,show:false });
+  serviceOSWindow = new BrowserWindow({
+    width: 820, 
+    height: 580, 
+    parent: homeWindow, 
+    frame: false,
+    show:false,
+    transparent: true,
+    resizable:false,
+    webPreferences: { 
+      contextIsolation: true, 
+      enableRemoteModule: false,
+      preload: path.join(__dirname, "preload.js") 
+  }
+  });
 
-  mainWindow.loadURL(isDev ? 'http://localhost:3000/' : `file://${path.join(__dirname, '../build/index.html')}`);
+  userCadWindow = new BrowserWindow({
+    width: 800, 
+    height: 560, 
+    parent: homeWindow, 
+    frame: false,
+    show:false,
+    transparent: true,
+    resizable:false,
+    webPreferences: { 
+      contextIsolation: true, 
+      enableRemoteModule: false,
+      preload: path.join(__dirname, "preload.js") 
+  }
+  })
+
+  loginWindow.loadURL(isDev ? 'http://localhost:3000/' : `file://${path.join(__dirname, '../build/index.html')}`);
   
   homeWindow.loadURL(isDev ? 'http://localhost:3000/Home' : `file://${path.join(__dirname, '../build/index.html')}`);
 
   serviceOSWindow.loadURL(isDev ? 'http://localhost:3000/ServiceOS' : `file://${path.join(__dirname, '../build/index.html')}`);
 
-  mainWindow.on('closed', () => mainWindow = null);
-
-  serviceOSWindow.on('close', (event) => {
-    event.preventDefault(); 
-    serviceOSWindow.hide()
-    });
-
-    homeWindow.on('close', (event) => {
-      event.preventDefault(); 
-      homeWindow.hide()
-      });
-
+  userCadWindow.loadURL(isDev ? 'http://localhost:3000/UserCad' : `file://${path.join(__dirname, '../build/index.html')}`);
 
 }
 
@@ -65,42 +84,65 @@ app.on('window-all-closed', () => {
 });
 
 app.on('activate', () => {
-  if (mainWindow === null) {
+  if (loginWindow === null) {
     createWindow();
   }
 });
 
+//Eventos minimizar janelas
 
 
-ipcMain.on('exit-window', () => {
+ipcMain.on('min-loginWindow',() =>{
+  loginWindow.minimize()
+})
+
+ipcMain.on('min-homeWindow',() =>{
+  homeWindow.minimize()
+})
+
+ipcMain.on('min-serviceOSWindow',() =>{
+  serviceOSWindow.minimize()
+})
+
+ipcMain.on('min-userCadWindow',() =>{
+  userCadWindow.minimize()
+})
+
+
+//Eventos fechar janelas
+ipcMain.on('close-AppWindow',()=>{
   app.quit();
 })
 
-ipcMain.on('min-window', () => {
-  mainWindow.minimize();
+ipcMain.on('close-serviceOSWindow',() =>{
+  serviceOSWindow.hide()
 })
 
-ipcMain.on('min-windowHome', () => {
-  homeWindow.minimize();
+ipcMain.on('close-userCadWindow',() =>{
+  userCadWindow.hide()
 })
-
-ipcMain.on('open-window', () => {
-  serviceOSWindow.show();
-})
-
+//Eventos abrir janelas
 
 ipcMain.on('open-homeWindow', () => {
    
   homeWindow.show();
   homeWindow.maximize();
-  mainWindow.hide();
+  loginWindow.hide();
   
 })
 
-
-ipcMain.on('exit-homeWindow', () => {
-  mainWindow.reload();
-  mainWindow.show();
+ipcMain.on('back-loginWindow', () => {
+  loginWindow.reload();
+  loginWindow.show();
   homeWindow.hide();
 })
+
+ipcMain.on('open-serviceOSWindow', () => {
+  serviceOSWindow.show();
+})
+
+ipcMain.on('open-userCadWindow', () => {
+  userCadWindow.show();
+})
+
 

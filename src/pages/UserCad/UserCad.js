@@ -1,7 +1,7 @@
 import React from 'react';
 import firebase,{firestore} from '../../config/Firebase';
-
-
+import HeaderWind from '../../components/HeaderWind';
+import Box from '@material-ui/core/Box';
 function UserCad(){
 
     async function Submit ( e ) {
@@ -25,7 +25,8 @@ function UserCad(){
     }
     return(
 
-        <div>
+        <Box sx={{height: '100vh',width:'100vw',background:  '#FFF', borderRadius: 3}}>
+            <HeaderWind nameWind="UserCad" type="drag"/>
                 <header>
                 <h1>Cadastro Usuario</h1>
                 </header>
@@ -45,7 +46,7 @@ function UserCad(){
                 </div>
         
         
-        </div>
+        </Box>
 
     );
 

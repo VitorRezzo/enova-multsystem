@@ -1,19 +1,28 @@
+//React funções
+import React, { useState,useEffect} from 'react';
+
+//Logo marca da empresa
 import Logo from '../../img/EnovaLogo.png';
+
+//funções do firebase
 import firebase from '../../config/Firebase';
+
+//material iu componentes
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
-import React, { useState,useEffect} from 'react';
-import TextFieldNew from './components/TextFieldNew.js';
 import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import CloseIcon  from '@material-ui/icons/Close';
-import MinimizeIcon from '@material-ui/icons/Minimize';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import Visibility from '@material-ui/icons/Visibility';
 import Alert from '@material-ui/core/Alert';
 import CircularProgress from '@material-ui/core/CircularProgress';
+
+//material iu  icones
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import Visibility from '@material-ui/icons/Visibility';
+
+//Componentes personalizado
+import TextFieldNew from './components/TextFieldNew.js';
+import HeaderWind from '../../components/HeaderWind';
 
 function Login() { 
 
@@ -65,40 +74,15 @@ useEffect(() => {
   
   }
 
-  const exit = () => {
-    window.electron.exitWindow()
-}
-
-const min = () => {
-  window.electron.minWindow()
-}
-
   return (
     
     
     
     <Container onClick={() => setMgsErro(false)}  component="main" maxWidth="xs" sx={{ borderRadius: 2, background:  '#293443'}} >
    
-        <Box    sx={{ WebkitAppRegion:'drag',height:'5vh' }} >
-           <Grid  container direction="row" justifyContent="flex-end" >
+        
+      <HeaderWind type="drag" nameWind="Login"/>
 
-            <IconButton onClick={min}  
-            sx={{marginTop:'8px',WebkitAppRegion:'no-drag', color: 'orange'}} 
-            >
-            <MinimizeIcon   sx={{marginTop:'-11px'}}/> 
-            </IconButton>
-
-             <IconButton 
-             size="small"
-             onClick={exit} 
-             sx={{marginTop:'8px',WebkitAppRegion:'no-drag',color: 'orange'}} 
-             >  
-             <CloseIcon />
-             </IconButton>
-
-            </Grid>
-        </Box >
-      
         <Box
           sx={{
             paddingTop: 8,
@@ -109,7 +93,7 @@ const min = () => {
           }}
         >
         <Box  sx={{ mt: -1, mb: 3 }}>
-              <img style={{width: '115px', height: '65px'}}src={Logo} alt="logo enova"/>
+              <img style={{width: '115px', height: '65px' }}src={Logo} alt="logo enova"/>
         </Box >
 
           <Box component="form"  onSubmit={handleSubmit}  noValidate sx={{ mt: 1 }}>

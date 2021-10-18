@@ -3,6 +3,15 @@ import React,{useState,useEffect} from 'react';
 import {firestore} from '../../config/Firebase';
 
 
+import Box from '@material-ui/core/Box';
+import Grid from '@material-ui/core/Grid';
+import Container from '@material-ui/core/Container';
+import Button from '@material-ui/core/Button';
+
+
+import HeaderWind from '../../components/HeaderWind';
+import {FormInput,FormSelect} from '../../components/FormsIU';
+
 function ServiceOs(){
 
     const [options,setOptions] = useState([]);
@@ -65,7 +74,7 @@ function ServiceOs(){
             Localizacao: e.target.localizacao.value 
             
           })
-          console.log(idUser[0])
+         
          alert("dados enviados com sucesso")
             
         }catch(error){
@@ -77,52 +86,79 @@ function ServiceOs(){
         
     return(
 
-        <div >
-                <header >
-            
-                <h1>Cadastro Atendimentos</h1>
-                </header>
+        <Box onSubmit={Submit} sx={{height: '100vh',width:'100vw', background:'  linear-gradient(2deg, rgba(14,36,64,1) 60%, rgba(13,13,13,1) 79%)', borderRadius: 2}} >
+            <Container >
+            <HeaderWind nameWind="ServiceOS" type="drag" />
 
-                <div >
-                    <form onSubmit={Submit} >
-                        <label>OS: </label>
-                        <input name="os" type="number" placeholder=""  required/>
-                        <label>PT: </label>
-                        <input name="pt" type="number" placeholder=""  required/>
-                        <label>Responsavel: </label>    
+                    <Grid container sx={{marginTop:"8px"}} spacing={6} >
+                       <FormInput
+                       defaultValue="Hello world"
+                       label="OS"
+                       name="os"
+                       type="text"
+                       />
+
+                      <FormInput
+                       label="PT"
+                       name="pt"
+                       type="text"
+                       />
+
+                      <FormInput 
+                       label="Cliente"
+                       name="cliente"
+                       type="text"
+                       />
                         
-                        <select 
-                        
-                        value={ selectedOption }
+                        <FormInput
+                       
+                       name="data"
+                       type="date"
+                       />
+            
+                        <FormSelect
+                        label="Responsavel"
+                        value={selectedOption}
                         onChange={(e) => setSelectedOption(e.target.value)}
                         onClick={(e) => SelectId(e.target.value)}
-                        > 
-                            <option>selecionar</option>
-                             {options.map((option) => (
-                                <option name="op" key={option}>{option}</option>
-                                ))
-                             }
-                             
-                        </select>         
-                        <label>Data: </label>
-                        <input name="data" type="date" placeholder=""  required/>
-                        <label>Cliente: </label>
-                        <input name="cliente" type="text" placeholder=""  required/>
-                        <label>Problema: </label>
-                        <input name="problema" type="text" placeholder=""  required/>
-                        <label>Descrição: </label>
-                        <input name="descricao" type="text" placeholder=""  />
-                        <label>Endereço: </label>
-                        <input name="endereco" type="text" placeholder=""  required/>
-                        <label>Localização: </label>
-                        <input name="localizacao" type="text" placeholder=""  />
-                        <button type="submit"  >Enviar</button>
-                    </form>
-                </div>
-        
-        
-        </div>
+                        options={options}
+                        />       
+                        
+                        <FormInput
+                        label="Problema"
+                        name="problema"
+                        type="text"
+                        />
 
+                        <FormInput
+                        label="Descrição"
+                        name="descricao"
+                        type="text"
+                        />
+
+                        <FormInput
+                        label="Endereço"
+                        name="endereco"
+                        type="text"
+                        />
+
+                        <FormInput
+                        label="Localização"
+                        name="localizacao"
+                        type="text"
+                        />
+
+                        <Grid item xs={4}>
+                        <Button type="submit"  
+                        sx={{ color:"#D9D8D7", mb: 1,width:'300px', marginLeft:"5%" , borderRadius:3,  background: 'linear-gradient(to bottom right, #F2B705 10%, #F28705 60% )'}}
+                        >Enviar</Button>
+                        </Grid>
+               
+                        </Grid>
+
+                        </Container>
+        </Box>
+        
     );
 
 }

@@ -1,113 +1,123 @@
+//React funções
 import React,{ useState} from 'react';
+
+//funções do firebase
 import firebase from '../../config/Firebase';
-import Drawer from '@material-ui/core/Drawer';
-import Button from '@material-ui/core/Button';
-import MenuIcon from '@material-ui/icons/Menu';
-import IconButton from '@material-ui/core/IconButton';
-import Container from '@material-ui/core/Container';
-import Box from '@material-ui/core/Box';
-import CloseIcon  from '@material-ui/icons/Close';
-import MinimizeIcon from '@material-ui/icons/Minimize';
-import Grid from '@material-ui/core/Grid';
+
+//Logo marca da empresa
+import Logo from '../../img/EnovaLogo.png';
+
+//material iu  icones
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import MenuIcon from '@material-ui/icons/Menu';
+import MeetingRoomRoundedIcon from '@material-ui/icons/MeetingRoomRounded';
+
+//material iu componentes
+import Drawer from '@material-ui/core/Drawer';
+import IconButton from '@material-ui/core/IconButton';
+import Box from '@material-ui/core/Box';
 import Divider from '@material-ui/core/Divider';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import MenuList from '@material-ui/core/MenuList';
+import Toolbar from '@material-ui/core/Toolbar';
+import ListItemText from '@material-ui/core/ListItemText';
+import { createTheme } from '@material-ui/core/styles'
+import Grid from '@material-ui/core/Grid';
 
-
-
-
+//Componentes personalizado
+import HeaderWind from '../../components/HeaderWind';
+import {ListMenu} from './components/MenuListIU.js';
 
 function Home(){
+const theme = createTheme();
+const drawerWidth=220;
 
-const drawerWidthmax=220;
-const drawerWidthmin=35;
 
-let [drawerWidth, setdrawerWidth] = useState(drawerWidthmin);
+const [openDrawer, setopendrawer] = useState(true);
 
   function StatusDrawer(){
-     if(drawerWidth !== drawerWidthmax){
-         setdrawerWidth(drawerWidthmax)
+     if(openDrawer === false){
+      setopendrawer(true)
       }else{
-      setdrawerWidth(drawerWidthmin)
+        setopendrawer(false)
       }
   }
 
-
-  const exit = () => {
-    window.electron.exitWindow()
-}
-
-const min = () => {
-  window.electron.minWindowhome()
-}
-
-    function logout(){
+    const logout = () =>{
 
     firebase.auth().signOut()
     
-    window.electron.exithomeWindow()
+    window.electron.backLoginWindow()
 
     }
 
 const openServiceOS = () => {
-    window.electron.openWindow()
+    window.electron.openserviceOSWindow()
 }
-
-
-
 
     return(
      
-
-   
     <Box sx={{height: '100vh',width:'100vw',background:  '#293443'}}>
-        <Drawer
-         sx={{
-           
-          flexShrink: 0,
-          '& .MuiDrawer-paper': {
-            width: drawerWidth,
-            boxSizing: 'border-box',
-            background: 'linear-gradient(to bottom right, #F2B705 10%, #F28705 60% )',
-            
-          },
-          
-        }}
-        variant="permanent"
-        open={true}
-        >
-        <Box sx={{alignItems: 'center', display: 'flex', justifyContent:"flex-end"  }}>
-        <IconButton  onClick={()=> StatusDrawer()} >
-         {drawerWidth === drawerWidthmin ? <MenuIcon sx={{color: '#293443'}} />: <ChevronLeftIcon />}
-        </IconButton>
-        </Box>
 
+        <HeaderWind nameWind="Home"/>
+
+        <Drawer
+          sx={{
+            flexShrink: 0,
+            '& .MuiDrawer-paper': {
+               boxSizing: 'border-box',
+              background: 'linear-gradient(to bottom right, #F2B705 10%, #F28705 60% )',
+               overflowX: [openDrawer ?  'hidden' : 'auto'], 
+                width: [openDrawer ? theme.spacing(7) : drawerWidth],
+                [openDrawer ? theme.breakpoints.up('sm') : null]:{width: theme.spacing(7)},
+                
+                
+              }
+          }}
+
+          variant="permanent"
+          open={openDrawer}
+       >
+           
+
+            
+    
+
+        <Grid container
+            spacing={7}       
+          >
+            {openDrawer ?
+            null :<Grid item xs={4} sx={{marginLeft:'30%',marginTop:'2%'}} > <img style={{width: '45px', height: '25px'}}src={Logo} alt="logo enova"/>
+            </Grid>
+            }
+            <Grid item  >
+        <IconButton  onClick={()=> StatusDrawer()} >
+         {openDrawer  ? <MenuIcon sx={{marginLeft:"50%",color:'#293443'}} /> : <ChevronLeftIcon /> }
+        </IconButton>
+        </Grid>
+       </Grid>
+        
+        <Divider/>
+
+      
+          <ListMenu />
+        
+        
+
+        <Divider />
+        <Toolbar sx={{
+              display: 'flex',
+              flexDirection:'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              px: [1],
+            }}>
+          <IconButton  onClick={logout}><MeetingRoomRoundedIcon/></IconButton>
+          <ListItemText >Logout</ListItemText>
+        </Toolbar>
 
         </Drawer>
-     
-     <Box   
-            sx={{ height:'1vh' }} 
-        >
-           <Grid  container direction="row" justifyContent="flex-end" >
-
-            <IconButton onClick={min}  
-            sx={{marginTop:'5px', color: 'orange'}} 
-            >
-            <MinimizeIcon   sx={{marginTop:'-13px'}}/> 
-            </IconButton>
-
-             <IconButton 
-             size="small"
-             onClick={exit} 
-             sx={{marginTop:'5px',color: 'orange'}} 
-             >  
-             <CloseIcon />
-             </IconButton>
-
-            </Grid>
-        </Box >
+        
+       
+    
     </Box>
 
 
