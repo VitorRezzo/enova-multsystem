@@ -27,12 +27,13 @@ import Typography from "@material-ui/core/Typography";
 
 //Componentes personalizado
 import HeaderWind from "../../components/HeaderWind";
+import TableList from "../../components/TableList";
+
 import { ListMenu } from "./components/MenuListIU.js";
 import { Barchart } from "./components/Barchart.js";
 import { Piechart } from "./components/Piechart.js";
-import  TableList  from "./components/TableList.js";
 
-function Home() {
+export default function Home() {
   const theme = createTheme();
 
   const drawerWidth = 240;
@@ -66,10 +67,10 @@ function Home() {
             [openDrawer ? theme.breakpoints.up("sm") : null]: {
               width: theme.spacing(7),
             },
-            transition: theme.transitions.create('width', {
-          easing: theme.transitions.easing.sharp,
-          duration: theme.transitions.duration.enteringScreen,
-        }),
+            transition: theme.transitions.create("width", {
+              easing: theme.transitions.easing.sharp,
+              duration: theme.transitions.duration.enteringScreen,
+            }),
           },
         }}
         variant="permanent"
@@ -113,23 +114,23 @@ function Home() {
         </Toolbar>
       </Drawer>
 
-      <Container 
-      maxWidth="lg" 
-      
-      sx={{ mt: 2, mb: 2,
-      
-      marginLeft:[openDrawer ? '15%' : '22%'],
-      width:[openDrawer ?  `calc(100% - ${drawerWidth}px)`: `calc(95% - ${drawerWidth}px)`], 
-      transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-      }),
-      
-      }}
+      <Container
+        maxWidth="lg"
+        sx={{
+          mt: 2,
+          mb: 2,
 
-  
-     
-      
+          marginLeft: [openDrawer ? "15%" : "22%"],
+          width: [
+            openDrawer
+              ? `calc(100% - ${drawerWidth}px)`
+              : `calc(95% - ${drawerWidth}px)`,
+          ],
+          transition: theme.transitions.create(["width", "margin"], {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.leavingScreen,
+          }),
+        }}
       >
         <Grid container spacing={6}>
           <Grid item xs={12} md={8} lg={6}>
@@ -139,50 +140,53 @@ function Home() {
                 display: "flex",
                 flexDirection: "column",
                 height: 250,
-                
               }}
             >
-            <Typography color="primary" variant="h6"  component="div">
+              <Typography color="primary" variant="h6" component="div">
                 Desempenho equipes
               </Typography>
-            <Barchart/>
+              <Barchart />
             </Paper>
           </Grid>
 
-
           <Grid item xs={12} md={8} lg={6}>
-          
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: 250,
-                    width: 250,
-                  }}
-                >
-               <Typography color="primary" variant="h6"  component="div">
+            <Paper
+              sx={{
+                p: 2,
+                display: "flex",
+                flexDirection: "column",
+                height: 250,
+                width: 250,
+              }}
+            >
+              <Typography color="primary" variant="h6" component="div">
                 Chamados
               </Typography>
-                  <Piechart/>
-                </Paper>
-              </Grid>
+              <Piechart />
+            </Paper>
+          </Grid>
 
-
-              <Grid item xs={12}>
-                <Paper sx={{ p: 2, display: 'flex',
-                  width:[openDrawer ? `calc(98% - ${drawerWidth}px)` : `calc(101% - ${drawerWidth}px)`],
-                flexDirection: 'column' }}>
-                <Typography color="primary" variant="h6"  component="div">
+          <Grid item xs={12}>
+            <Paper
+              sx={{
+                p: 2,
+                display: "flex",
+                width: [
+                  openDrawer
+                    ? `calc(98% - ${drawerWidth}px)`
+                    : `calc(101% - ${drawerWidth}px)`,
+                ],
+                flexDirection: "column",
+              }}
+            >
+              <Typography color="primary" variant="h6" component="div">
                 Atividades Recentes
               </Typography>
-                  <TableList /> 
-                </Paper>
-              </Grid>
+              <TableList />
+            </Paper>
+          </Grid>
         </Grid>
       </Container>
     </Box>
   );
 }
-
-export default Home;

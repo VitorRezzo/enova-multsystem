@@ -12,10 +12,7 @@ import { FormInput, FormSelect } from "../../components/FormsIU";
 
 function ServiceOs() {
   const [options, setOptions] = useState([]);
-
-  const [selectedOption, setSelectedOption] = useState();
-
-  let idUser = [];
+  const optionsAtividades =['SUPORTE','INSTALAÇÃO']
 
   useEffect(() => {
     const Filter = async () => {
@@ -34,28 +31,16 @@ function ServiceOs() {
     Filter();
   }, []);
 
-  async function SelectId(name) {
-    await firestore
-      .collection("USERS")
-      .where("Nome", "==", name)
-      .get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          idUser[0] = doc.data().Id;
-        });
-      })
-      .catch((error) => {
-        console.log("Error getting documents: ", error);
-      });
-  }
 
   async function Submit(e) {
     e.preventDefault();
-
+    
     try {
-      await firestore.collection(idUser[0]).add({
+    
+      await firestore.collection(e.target.atividade.value).add({
+        OS:e.target.os.value,
         PT: e.target.pt.value,
-        Responsavel: selectedOption,
+        Responsavel: e.target.responsavel.value,
         Data: e.target.data.value,
         Cliente: e.target.cliente.value,
         Problema: e.target.problema.value,
@@ -66,27 +51,34 @@ function ServiceOs() {
 
       alert("dados enviados com sucesso");
     } catch (error) {
-      alert("dados não anviados", error);
+      
+      alert("dados não enviados ");
     }
   }
 
   return (
     <Box
-      onSubmit={Submit}
+     
       sx={{
         height: "100vh",
         width: "100vw",
         background:
-          "  linear-gradient(2deg, rgba(14,36,64,1) 60%, rgba(13,13,13,1) 79%)",
-        borderRadius: 2,
+          "  linear-gradient(20deg, rgba(14,36,64,1) 60%, rgba(13,13,13,1) 90%)",
       }}
     >
       <Container>
         <HeaderWind nameWind="ServiceOS" type="drag" />
-
-        <Grid container sx={{ marginTop: "8px" }} spacing={6}>
+        <form  onSubmit={Submit} >
+        <Grid  container sx={{ marginTop: "8px" }} spacing={4}>
+        
+        <FormSelect
+            label="Atividade"
+            name="atividade"
+            options={optionsAtividades}
+          />
+        
           <FormInput
-            defaultValue="Hello world"
+           
             label="OS"
             name="os"
             type="text"
@@ -100,9 +92,7 @@ function ServiceOs() {
 
           <FormSelect
             label="Responsavel"
-            value={selectedOption}
-            onChange={(e) => setSelectedOption(e.target.value)}
-            onClick={(e) => SelectId(e.target.value)}
+            name="responsavel"
             options={options}
           />
 
@@ -117,6 +107,7 @@ function ServiceOs() {
           <Grid item xs={4}>
             <Button
               type="submit"
+            
               sx={{
                 color: "#D9D8D7",
                 mb: 1,
@@ -130,7 +121,10 @@ function ServiceOs() {
               Enviar
             </Button>
           </Grid>
+          
         </Grid>
+        </form>
+        
       </Container>
     </Box>
   );

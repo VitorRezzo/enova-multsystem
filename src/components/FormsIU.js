@@ -31,12 +31,39 @@ const TextFieldNew = styled(TextField)({
     },
   },
 });
+
+const FormControlNew = styled(FormControl)({
+  "& label.Mui-focused": {
+    color: "#F2B138",
+  },
+  "& label": {
+    color: "white",
+  },
+  "& .MuiInputBase-root": {
+    color: "white",
+  },
+  "& .MuiInput-underline:after": {
+    borderBottomColor: "#F2B138",
+  },
+  "& .MuiOutlinedInput-root": {
+    "& fieldset": {
+      border: "solid 1px #F2B138",
+      borderRadius: "10px",
+    },
+    "&:hover fieldset": {
+      borderColor: "#F2B138",
+    },
+    "&.Mui-focused fieldset": {
+      borderColor: "#F2B138",
+    },
+  },
+});
 export const FormInput = ({ label, name, type }, props) => {
   return (
-    <Grid item xs={6}>
+    <Grid item xs={3}>
       <TextFieldNew
         label={label}
-        fullWidth
+       variant="filled"
         name={name}
         type={type}
         size="small"
@@ -45,12 +72,12 @@ export const FormInput = ({ label, name, type }, props) => {
   );
 };
 
-export const FormSelect = ({ label, value, options, Change, Click }, props) => {
+export const FormSelect = ({ label, name, options,click }, props) => {
   return (
-    <Grid item xs={6}>
-      <FormControl fullWidth>
+    <Grid item xs={3}>
+      <FormControlNew variant="filled">
         <InputLabel>{label}</InputLabel>
-        <Select label={label} value={value} onChange={Change} onClick={Click}>
+        <Select name={name} label={label} onClick={click}  >
           <MenuItem value="">
             <em>None</em>
           </MenuItem>
@@ -59,7 +86,7 @@ export const FormSelect = ({ label, value, options, Change, Click }, props) => {
             <MenuItem value={option}>{option}</MenuItem>
           ))}
         </Select>
-      </FormControl>
+      </FormControlNew>
     </Grid>
   );
 };

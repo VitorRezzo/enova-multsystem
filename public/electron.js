@@ -36,12 +36,11 @@ function createWindow() {
 } });
   
   serviceOSWindow = new BrowserWindow({
-    width: 820, 
-    height: 580, 
+    width: 900, 
+    height: 680,
     parent: homeWindow, 
     frame: false,
     show:false,
-    transparent: true,
     resizable:false,
     webPreferences: { 
       contextIsolation: true, 
