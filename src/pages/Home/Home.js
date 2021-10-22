@@ -118,7 +118,7 @@ export default function Home() {
         sx={{
           mt: 2,
           mb: 2,
-          marginLeft: [openDrawer ? "20%" : "25%"],
+          marginLeft: [openDrawer ? "15%" : "25%"],
           width: [
             openDrawer
               ? 

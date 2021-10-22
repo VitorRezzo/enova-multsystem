@@ -1,83 +1,68 @@
 import React from "react";
-import { MenuItem, FormControl, InputLabel, Select } from "@material-ui/core/";
-import TextField from "@material-ui/core/TextField";
+import { MenuItem, FormControl, InputLabel,FilledInput , Select } from "@material-ui/core/";
 import Grid from "@material-ui/core/Grid";
+
 
 //material iu estilos
 import styled from "@material-ui/styled-engine-sc/";
-const TextFieldNew = styled(TextField)({
-  "& label.Mui-focused": {
-    color: "#F2B138",
-  },
-  "& label": {
-    color: "white",
-  },
-  "& .MuiInputBase-root": {
-    color: "white",
-  },
-  "& .MuiInput-underline:after": {
-    borderBottomColor: "#F2B138",
-  },
-  "& .MuiOutlinedInput-root": {
-    "& fieldset": {
-      border: "solid 1px #F2B138",
-      borderRadius: "10px",
-    },
-    "&:hover fieldset": {
-      borderColor: "#F2B138",
-    },
-    "&.Mui-focused fieldset": {
-      borderColor: "#F2B138",
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 200,
     },
   },
-});
+};
 
 const FormControlNew = styled(FormControl)({
   "& label.Mui-focused": {
     color: "#F2B138",
   },
   "& label": {
-    color: "white",
+    color: "#768591",
   },
   "& .MuiInputBase-root": {
-    color: "white",
+    color: "#A8C0CE",
   },
-  "& .MuiInput-underline:after": {
-    borderBottomColor: "#F2B138",
-  },
-  "& .MuiOutlinedInput-root": {
-    "& fieldset": {
-      border: "solid 1px #F2B138",
-      borderRadius: "10px",
-    },
-    "&:hover fieldset": {
-      borderColor: "#F2B138",
-    },
-    "&.Mui-focused fieldset": {
-      borderColor: "#F2B138",
-    },
-  },
+
 });
-export const FormInput = ({ label, name, type }, props) => {
+export const FormInput = ({ label, name, type ,width}, props) => {
   return (
-    <Grid item xs={3}>
-      <TextFieldNew
-        label={label}
-       variant="filled"
-        name={name}
-        type={type}
-        size="small"
-      />
+    <Grid item xs={12} >
+     <FormControlNew variant="filled" sx={{width: '100px'}}  >
+        <InputLabel htmlFor="component-filled">{label}</InputLabel>
+        <FilledInput
+        required={true}
+        label={label}  
+        name={name} 
+        type={type} 
+        rows={3} 
+        
+     
+        multiline={name === 'descricao' || name === 'instrucao'  ? true : false} 
+        />
+      </FormControlNew>
     </Grid>
   );
 };
 
-export const FormSelect = ({ label, name, options,click }, props) => {
+export const FormSelect = ({ label, name, options,width,click }, props) => {
   return (
-    <Grid item xs={3}>
-      <FormControlNew variant="filled">
-        <InputLabel>{label}</InputLabel>
-        <Select name={name} label={label} onClick={click}  >
+    <Grid item xs={4}  >
+      <FormControlNew  variant="filled"   >
+        <InputLabel htmlFor="component-filled">{label}</InputLabel>
+        <Select
+         size="small"
+          multiline
+         name={name}    
+         label={label} 
+         required={true}  
+         onClick={click}  
+         MenuProps={MenuProps}
+         >
           <MenuItem value="">
             <em>None</em>
           </MenuItem>

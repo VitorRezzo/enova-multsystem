@@ -36,8 +36,9 @@ function createWindow() {
 } });
   
   serviceOSWindow = new BrowserWindow({
-    width: 900, 
-    height: 680,
+    width: 800,
+    backgroundColor: '#011126', 
+    height: 600,
     parent: homeWindow, 
     frame: false,
     show:false,
