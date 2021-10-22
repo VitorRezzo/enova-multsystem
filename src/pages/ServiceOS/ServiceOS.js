@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 
 import { firestore } from "../../config/Firebase";
 
-
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
@@ -39,6 +38,7 @@ const {userLog,dataAtual} = useGlobalUse();
   
   }, []);
 
+          
 
   async function Submit(e) {
 

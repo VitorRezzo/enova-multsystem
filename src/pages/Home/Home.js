@@ -8,7 +8,6 @@ import Logo from "../../img/EnovaLogoMenu.png";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import MenuIcon from "@material-ui/icons/Menu";
 
-
 //material iu componentes
 import Drawer from "@material-ui/core/Drawer";
 import IconButton from "@material-ui/core/IconButton";
@@ -29,6 +28,7 @@ import { Barchart } from "./components/Barchart.js";
 import { Piechart } from "./components/Piechart.js";
 
 
+
 export default function Home() {
   const theme = createTheme();
 
@@ -45,7 +45,6 @@ export default function Home() {
       setopendrawer(false);
     }
   }
-
 
   return (
     <Box sx={{ height: "100vh", width: "100vw", background: "#293443" }}>
