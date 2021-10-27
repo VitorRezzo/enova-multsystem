@@ -1,5 +1,5 @@
 //React funções
-import React,{useState} from "react";
+import React, { useState } from "react";
 
 //funções do firebase
 import firebase from "../config/Firebase";
@@ -21,7 +21,7 @@ import { useGlobalUse } from "./GlobalUse";
 //Cabeçalho com botão fechar e minimizar para as janelas do aplicativo
 export default function HeaderWind({ type, nameWind }, props) {
   const { userLog } = useGlobalUse();
-  
+
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -63,45 +63,44 @@ export default function HeaderWind({ type, nameWind }, props) {
     firebase.auth().signOut();
     window.electron.backLoginWindow();
   };
-  
- 
-
 
   return (
-    <Box sx={{ height: "5vh", WebkitAppRegion: type, borderRadius: 1 }}>
+    <Box
+      sx={{
+        height: "5vh",
+        WebkitAppRegion: type,
+        borderRadius: 1,
+
+        width: "100%",
+      }}
+    >
       <Grid container direction="row" justifyContent="flex-end">
-        <Grid item >
-          {nameWind === "Home" ? 
+        <Grid item>
+          {nameWind === "Home" ? (
             <Typography
-              sx={{color: "#768591", fontSize: "14px", marginTop: "8px" }}
+              sx={{ color: "#768591", fontSize: "14px", marginTop: "8px" }}
               variant="h2"
               component="div"
             >
               Seja Bem-Vindo! {userLog}
-              
-              <IconButton sx={{WebkitAppRegion: "no-drag"}} onClick={handleClick}>
+              <IconButton
+                sx={{ WebkitAppRegion: "no-drag" }}
+                onClick={handleClick}
+              >
                 <AccountBoxIcon />
-                </IconButton>
-                <Menu
-                
-                
+              </IconButton>
+              <Menu
                 anchorEl={anchorEl}
                 open={open}
                 onClose={handleClose}
                 TransitionComponent={Fade}
-                >
-                  <MenuItem>Perfil</MenuItem>
-                  <MenuItem onClick={logout}>Sair</MenuItem>
-
-                </Menu>
-              
+              >
+                <MenuItem>Perfil</MenuItem>
+                <MenuItem onClick={logout}>Sair</MenuItem>
+              </Menu>
             </Typography>
-            
-           : 
-           null
-           
-          }
-          </Grid>
+          ) : null}
+        </Grid>
         <Grid item>
           <IconButton
             onClick={minimize}

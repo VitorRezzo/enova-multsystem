@@ -3,7 +3,7 @@ import { PieChart, Pie, Cell,Tooltip, ResponsiveContainer } from "recharts";
 
 export const Piechart = () => {
   const data = [
-    { name: "Abertos", value: 30 },
+    { name: "Abertos", value: 50 },
     { name: "Atendidos", value: 20},
     { name: "Pendentes", value: 6 },
     { name: "Não Atendidos", value: 4 },
