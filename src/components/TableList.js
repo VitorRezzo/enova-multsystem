@@ -7,53 +7,44 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import { firestore } from "../config/Firebase";
 
-export default function TableList(
-  preventDefault,
-  color,
-  background,
-  border,
-  marginTop
-) 
-{
+export default function TableList(preventDefault) {
   const [table, setTable] = useState([]);
 
   useEffect(() => {
-    let cont = 0; 
+    let cont = 0;
     const Dados = async () => {
       await firestore
-        .collection('SUPORTE')
+        .collection("Servicos")
         .get()
         .then((querySnapshot) => {
-             setTable(querySnapshot.docs.map((doc) => ({
-                    id:cont++,
-                    dataagenda: doc.data().DataAgenda,
-                    solicitante: doc.data().Solicitante,
-                    responsavel: doc.data().Responsavel,
-                    atividade: doc.data().Atividade
-                  })))
+          setTable(
+            querySnapshot.docs.map((doc) => ({
+              id: cont++,
+              dataagenda: doc.data().DataAgenda,
+              solicitante: doc.data().Solicitante,
+              responsavel: doc.data().Responsavel,
+              atividade: doc.data().Atividade,
+            }))
+          );
         })
         .catch((error) => {
           console.log("Error getting documents: ", error);
         });
     };
-   
+
     Dados();
-    
   }, []);
 
   return (
     <React.Fragment>
-      <Table
-        sx={{ marginTop: marginTop, background: background, border: border }}
-        size="small"
-      >
+      <Table size="small">
         <TableHead>
           <TableRow>
-            <TableCell sx={{ color: color }}>Data Agendamento</TableCell>
-            <TableCell sx={{ color: color }}>Solicitante</TableCell>
-            <TableCell sx={{ color: color }}>Responsavel</TableCell>
-            <TableCell sx={{ color: color }}>Tipo</TableCell>
-            <TableCell sx={{ color: color }}>Status</TableCell>
+            <TableCell>Data Agendamento</TableCell>
+            <TableCell>Solicitante</TableCell>
+            <TableCell>Responsavel</TableCell>
+            <TableCell>Tipo</TableCell>
+            <TableCell>Status</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

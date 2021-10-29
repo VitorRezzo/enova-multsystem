@@ -33,7 +33,7 @@ export default function HeaderWind({ type, nameWind }, props) {
 
   const close = () => {
     switch (nameWind) {
-      case "ServiceOS":
+      case "ServiceSuport":
         window.electron.closeserviceOSWindow();
         break;
       case "UserCad":
@@ -49,7 +49,7 @@ export default function HeaderWind({ type, nameWind }, props) {
       case "Home":
         window.electron.minhomeWindow();
         break;
-      case "ServiceOS":
+      case "ServiceSuport":
         window.electron.minserviceosWindow();
         break;
       case "UserCad":
