@@ -7,7 +7,7 @@ const url = require("url");
 const isDev = require("electron-is-dev");
 
 let loginWindow;
-let serviceOSWindow;
+let suporteWindow;
 let homeWindow;
 let userCadWindow;
 
@@ -37,7 +37,7 @@ function createWindow() {
     },
   });
 
-  serviceOSWindow = new BrowserWindow({
+  suporteWindow = new BrowserWindow({
     width: 800,
     backgroundColor: "#011126",
     height: 650,
@@ -58,7 +58,6 @@ function createWindow() {
     parent: homeWindow,
     frame: false,
     show: false,
-    transparent: true,
     resizable: false,
     webPreferences: {
       contextIsolation: true,
@@ -79,9 +78,9 @@ function createWindow() {
       : `file://${path.join(__dirname, "../build/index.html")}`
   );
 
-  serviceOSWindow.loadURL(
+  suporteWindow.loadURL(
     isDev
-      ? "http://localhost:3000/ServiceSuport"
+      ? "http://localhost:3000/Suporte"
       : `file://${path.join(__dirname, "../build/index.html")}`
   );
 
@@ -116,8 +115,8 @@ ipcMain.on("min-homeWindow", () => {
   homeWindow.minimize();
 });
 
-ipcMain.on("min-serviceOSWindow", () => {
-  serviceOSWindow.minimize();
+ipcMain.on("min-suporteWindow", () => {
+  suporteWindow.minimize();
 });
 
 ipcMain.on("min-userCadWindow", () => {
@@ -129,9 +128,9 @@ ipcMain.on("close-AppWindow", () => {
   app.quit();
 });
 
-ipcMain.on("close-serviceOSWindow", () => {
-  serviceOSWindow.reload();
-  serviceOSWindow.hide();
+ipcMain.on("close-suporteWindow", () => {
+  suporteWindow.reload();
+  suporteWindow.hide();
 });
 
 ipcMain.on("close-userCadWindow", () => {
@@ -149,11 +148,11 @@ ipcMain.on("open-homeWindow", () => {
 ipcMain.on("back-loginWindow", () => {
   loginWindow.reload();
   loginWindow.show();
-  homeWindow.hide();
+  homeWindow.close();
 });
 
-ipcMain.on("open-serviceOSWindow", () => {
-  serviceOSWindow.show();
+ipcMain.on("open-suporteWindow", () => {
+  suporteWindow.show();
 });
 
 ipcMain.on("open-userCadWindow", () => {

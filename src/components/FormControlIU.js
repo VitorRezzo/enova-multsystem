@@ -1,8 +1,6 @@
 import React from "react";
 import { MenuItem, FormControl, Select, InputLabel } from "@material-ui/core/";
-import Box from "@material-ui/core/Box";
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
+
 import Grid from "@material-ui/core/Grid";
 
 //material iu estilos

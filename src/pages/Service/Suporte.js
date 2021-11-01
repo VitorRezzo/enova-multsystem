@@ -15,7 +15,7 @@ import HeaderWind from "../../components/HeaderWind";
 import { FormControlNew, FormSelect } from "../../components/FormControlIU";
 import { useGlobalUse } from "../../components/GlobalUse";
 
-function ServiceSuport() {
+function Suporte() {
   const [options, setOptions] = useState([]);
 
   const { userLog, dataAtual, horaAtual } = useGlobalUse();
@@ -67,7 +67,7 @@ function ServiceSuport() {
         width: "100vw",
       }}
     >
-      <HeaderWind nameWind="ServiceSuport" type="drag" />
+      <HeaderWind nameWind="Suporte" type="drag" />
       <Container sx={{ marginTop: "2%" }}>
         <Grid container spacing={1.5}>
           <form onSubmit={Submit}>
@@ -145,4 +145,4 @@ function ServiceSuport() {
   );
 }
 
-export default ServiceSuport;
+export default Suporte;
