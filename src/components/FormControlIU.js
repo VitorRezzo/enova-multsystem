@@ -29,6 +29,7 @@ export const FormControlNew = styled(FormControl)({
   "& .MuiInputBase-root": {
     color: "#212529",
     backgroundColor: "#e9ecef",
+    height: "45px",
     "&:hover fieldset": {
       borderColor: "#f48c06",
     },
@@ -44,10 +45,9 @@ export const FormSelect = (
 ) => {
   return (
     <Grid item>
-      <FormControlNew>
+      <FormControlNew fullWidth={true}>
         <InputLabel htmlFor="component-select">{label}</InputLabel>
         <Select
-          size="small"
           multiline
           name={name}
           label={label}

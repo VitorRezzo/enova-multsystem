@@ -6,6 +6,7 @@ import DashboardIcon from "@material-ui/icons/Dashboard";
 import PeopleIcon from "@material-ui/icons/People";
 import AssessmentIcon from "@material-ui/icons/Assessment";
 import ThumbsUpDownIcon from "@material-ui/icons/ThumbsUpDown";
+import ArrowRightIcon from "@material-ui/icons/ArrowRight";
 
 //material iu componentes
 import List from "@material-ui/core/List";
@@ -13,13 +14,12 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import MenuItem from "@material-ui/core/MenuItem";
-import Popover from "@material-ui/core/Popover";
+import Menu from "@material-ui/core/Menu";
 import { makeStyles } from "@material-ui/styles";
 
 export const ListMenu = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [anchorUser, setAnchorUser] = useState(null);
-
   const open = Boolean(anchorEl);
   const openuser = Boolean(anchorUser);
 
@@ -29,7 +29,6 @@ export const ListMenu = () => {
 
   const handleClose = () => {
     setAnchorEl(null);
-    setAnchorUser(null);
   };
 
   const useStyles = makeStyles((theme: Theme) => ({
@@ -53,15 +52,19 @@ export const ListMenu = () => {
       </ListItem>
 
       <ListItem
-        onMouseEnter={(event) => setAnchorUser(event.currentTarget)}
+        onClick={
+          openuser
+            ? () => setAnchorUser(null)
+            : (event) => setAnchorUser(event.currentTarget)
+        }
         button
       >
         <ListItemIcon>
           <PeopleIcon />
         </ListItemIcon>
         <ListItemText primary="Usuarios" />
-
-        <Popover
+        <ArrowRightIcon />
+        <Menu
           className={classes.menu}
           anchorEl={anchorUser}
           elevation={0}
@@ -79,15 +82,16 @@ export const ListMenu = () => {
           <MenuItem onClick={() => window.electron.openuserCadWindow()}>
             Cadastro
           </MenuItem>
-        </Popover>
+        </Menu>
       </ListItem>
 
-      <ListItem onMouseEnter={handleOpen} button>
+      <ListItem onClick={open ? handleClose : handleOpen} button>
         <ListItemIcon>
           <ThumbsUpDownIcon />
         </ListItemIcon>
         <ListItemText primary="Atendimentos" />
-        <Popover
+        <ArrowRightIcon />
+        <Menu
           className={classes.menu}
           anchorEl={anchorEl}
           elevation={0}
@@ -106,7 +110,7 @@ export const ListMenu = () => {
             Suporte
           </MenuItem>
           <MenuItem>Instalação</MenuItem>
-        </Popover>
+        </Menu>
       </ListItem>
 
       <ListItem button>

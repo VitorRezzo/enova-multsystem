@@ -68,31 +68,38 @@ function Suporte() {
       }}
     >
       <HeaderWind nameWind="Suporte" type="drag" />
+
       <Container sx={{ marginTop: "2%" }}>
-        <Grid container spacing={1.5}>
-          <form onSubmit={Submit}>
-            <Grid item>
-              <FormControlNew>
+        <form onSubmit={Submit}>
+          <Grid container spacing={1.5}>
+            <Grid item xs={3}>
+              <FormControlNew fullWidth={true}>
                 <InputLabel htmlFor="my-outlined">PT</InputLabel>
                 <OutlinedInput type="text" name="pt" />
               </FormControlNew>
             </Grid>
 
-            <Grid item>
-              <FormControlNew>
+            <Grid item xs={3}>
+              <FormControlNew fullWidth={true}>
+                <InputLabel htmlFor="my-outlined">OS</InputLabel>
+                <OutlinedInput type="text" name="OS" />
+              </FormControlNew>
+            </Grid>
+
+            <Grid item xs={6}>
+              <FormControlNew fullWidth={true}>
                 <InputLabel htmlFor="my-outlined">Cliente</InputLabel>
                 <OutlinedInput type="text" name="cliente" />
               </FormControlNew>
             </Grid>
 
-            <Grid item>
-              <FormControlNew>
-                <InputLabel htmlFor="my-outlined">Data</InputLabel>
+            <Grid item xs={4}>
+              <FormControlNew fullWidth={true}>
                 <OutlinedInput type="date" name="data" />
               </FormControlNew>
             </Grid>
 
-            <Grid item>
+            <Grid item xs={8}>
               <FormSelect
                 label="Responsavel"
                 name="responsavel"
@@ -100,7 +107,7 @@ function Suporte() {
               />
             </Grid>
 
-            <Grid item>
+            <Grid item xs={4}>
               <FormSelect
                 label="Problemas"
                 name="problemas"
@@ -108,38 +115,45 @@ function Suporte() {
               />
             </Grid>
 
-            <Grid item>
-              <FormControlNew>
+            <Grid item xs={4}>
+              <FormControlNew fullWidth={true}>
                 <InputLabel htmlFor="my-outlined">Endereço</InputLabel>
                 <OutlinedInput type="text" name="endereco" />
               </FormControlNew>
             </Grid>
 
-            <Grid item>
-              <FormControlNew>
+            <Grid item xs={4}>
+              <FormControlNew fullWidth={true}>
                 <InputLabel htmlFor="my-outlined">Localização</InputLabel>
                 <OutlinedInput type="text" name="localizacao" />
               </FormControlNew>
             </Grid>
-          </form>
-        </Grid>
-        <IconButton
-          type="submit"
-          sx={{
-            color: "#006616",
-            width: "22px",
-            height: "22px",
-            float: "right",
-            marginRight: "2%",
-            marginTop: "2%",
-            borderRadius: 10,
-            "&:hover": {
-              color: "#009921",
-            },
-          }}
-        >
-          <AddCircleIcon />
-        </IconButton>
+
+            <Grid item xs={12}>
+              <FormControlNew fullWidth={true}>
+                <InputLabel htmlFor="my-outlined">Instruções</InputLabel>
+                <OutlinedInput multiline type="text" name="instrucoes" />
+              </FormControlNew>
+            </Grid>
+          </Grid>
+          <IconButton
+            type="submit"
+            sx={{
+              color: "#006616",
+              width: "22px",
+              height: "22px",
+              float: "right",
+              marginRight: "2%",
+              marginTop: "2%",
+              borderRadius: 10,
+              "&:hover": {
+                color: "#009921",
+              },
+            }}
+          >
+            <AddCircleIcon />
+          </IconButton>
+        </form>
       </Container>
     </Box>
   );

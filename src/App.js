@@ -1,7 +1,7 @@
 import Login from "./pages/Login/Login.js";
 import Home from "./pages/Home/Home.js";
 import UserCad from "./pages/UserCad/UserCad.js";
-import Suporte from "./pages/Service/Suporte.js";
+import Suporte from "./pages/Suporte/Suporte.js";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import React from "react";
 import { GlobalUseProvider } from "./components/GlobalUse.js";
