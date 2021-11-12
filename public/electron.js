@@ -38,9 +38,9 @@ function createWindow() {
   });
 
   suporteWindow = new BrowserWindow({
-    width: 800,
+    width: 850,
     backgroundColor: "#011126",
-    height: 650,
+    height: 680,
     parent: homeWindow,
     frame: false,
     show: false,
@@ -148,7 +148,7 @@ ipcMain.on("open-homeWindow", () => {
 ipcMain.on("back-loginWindow", () => {
   loginWindow.reload();
   loginWindow.show();
-  homeWindow.close();
+  homeWindow.hide();
 });
 
 ipcMain.on("open-suporteWindow", () => {
