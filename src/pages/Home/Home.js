@@ -150,7 +150,7 @@ export default function Home() {
                 p: 2,
                 display: "flex",
                 flexDirection: "column",
-                height: 250,
+                height: 300,
               }}
             >
               <Typography color="primary" variant="h6" component="div">

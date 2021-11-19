@@ -11,8 +11,8 @@ export function useGlobalUse() {
 export function GlobalUseProvider({ children }) {
   const [userLog, setUserLog] = useState("");
 
-  const GetNomeUser = async (uid) => {
-    await firestore
+  const GetNomeUser = (uid) => {
+    firestore
       .collection("USERS")
       .where("Id", "==", uid)
       .get()

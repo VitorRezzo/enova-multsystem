@@ -22,7 +22,6 @@ import { TextFieldIU } from "../../components/TextFieldStyled";
 import { useGlobalUse } from "../../components/GlobalUse";
 
 function Suporte() {
-  const [options, setOptions] = useState([]);
   var ListProblema = [
     { problema: "Goteira" },
     { problema: "Manutenção de telhado" },
@@ -36,31 +35,33 @@ function Suporte() {
     { problema: "Limpeza de Paineis" },
     { problema: "Outro" },
   ];
+  const [name, setName] = useState([]);
   const [problema, setProblema] = useState();
   const [data, setData] = useState();
   const { userLog } = useGlobalUse();
+  const [msgalert, setMsgalert] = useState(false);
+
+  const SelectUser = () => {
+    firestore
+      .collection("USERS")
+      .get()
+      .then((querySnapshot) => {
+        setName(querySnapshot.docs.map((doc) => doc.data().Nome));
+      })
+      .catch((error) => {
+        console.log("Error getting documents: ", error);
+      });
+  };
 
   useEffect(() => {
-    const Filter = async () => {
-      await firestore
-        .collection("USERS")
-        .get()
-        .then((querySnapshot) => {
-          setOptions(querySnapshot.docs.map((doc) => doc.data().Nome));
-        })
-        .catch((error) => {
-          console.log("Error getting documents: ", error);
-        });
-    };
+    SelectUser();
+  }, []);
 
-    Filter();
-  }, [options]);
-
-  async function Submit(e) {
+  function Submit(e) {
     e.preventDefault();
 
     try {
-      await firestore.collection("Servicos").add({
+      firestore.collection("Servicos").add({
         Atividade: "Suporte",
         OS: e.target.os.value,
         PT: e.target.pt.value,
@@ -75,10 +76,9 @@ function Suporte() {
         DataRegistro: firebase.firestore.Timestamp.now(),
         Status: "Abertos",
       });
-
-      alert("Atendimento agendado ");
+      setMsgalert(true);
     } catch (error) {
-      alert("dados não enviados ", error);
+      setMsgalert(false);
     }
   }
 
@@ -176,7 +176,7 @@ function Suporte() {
 
           <Grid item xs={3}>
             <Autocomplete
-              options={options}
+              options={name}
               renderInput={(params) => (
                 <TextFieldIU
                   {...params}

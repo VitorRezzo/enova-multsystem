@@ -129,12 +129,10 @@ ipcMain.on("close-AppWindow", () => {
 });
 
 ipcMain.on("close-suporteWindow", () => {
-  suporteWindow.reload();
   suporteWindow.hide();
 });
 
 ipcMain.on("close-userCadWindow", () => {
-  userCadWindow.reload();
   userCadWindow.hide();
 });
 //Eventos abrir janelas

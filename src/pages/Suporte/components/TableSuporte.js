@@ -13,66 +13,39 @@ import FindInPageIcon from "@material-ui/icons/FindInPage";
 import firebase, { firestore } from "../../../config/Firebase";
 
 export function TableSuporte() {
-  const [table, setTable] = useState([]);
+  const [tablesuport, setTableSuport] = useState([]);
 
-  const Dados = async () => {
-    var cont = 0;
+  const DadosSuporte = () => {
     const midnight = new Date(
       firebase.firestore.Timestamp.now().toDate().setHours(0, 0, 0, 0)
     );
-    await firestore
+    var cont = 0;
+    firestore
       .collection("Servicos")
-      .where("DataRegistro", ">=", midnight || "Atividade", "==", "Suporte")
+      .where("Atividade", "==", "Suporte")
+      .where("DataRegistro", ">=", midnight)
       .orderBy("DataRegistro", "desc")
       .limit(4)
-      .get()
-      .then((querySnapshot) => {
-        setTable(
-          querySnapshot.docs.map((doc) => ({
-            id: cont++,
-            dataagenda: doc.data().DataAgenda,
-            os: doc.data().OS,
-            pt: doc.data().PT,
-            solicitante: doc.data().Solicitante,
-            responsavel: doc.data().Responsavel,
-            problemas: doc.data().Problemas,
-          }))
-        );
-      })
-      .catch((error) => {
-        console.log("Error getting documents: ", error);
+      .onSnapshot((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          setTableSuport(
+            querySnapshot.docs.map((row) => ({
+              id: cont++,
+              dataagenda: row.data().DataAgenda,
+              os: row.data().OS,
+              pt: row.data().PT,
+              solicitante: row.data().Solicitante,
+              responsavel: row.data().Responsavel,
+              problemas: row.data().Problemas,
+            }))
+          );
+        });
       });
   };
 
   useEffect(() => {
-    Dados();
-  }, [table]);
-
-  const Pesquisar = async (pesquisa) => {
-    var cont = 0;
-
-    await firestore
-      .collection("Servicos")
-      .where("PT", "==", pesquisa)
-      .get()
-      .then((querySnapshot) => {
-        setTable(
-          querySnapshot.docs.map((doc) => ({
-            id: cont++,
-            dataagenda: doc.data().DataAgenda,
-            os: doc.data().OS,
-            pt: doc.data().PT,
-            solicitante: doc.data().Solicitante,
-            responsavel: doc.data().Responsavel,
-            problemas: doc.data().Problemas,
-          }))
-        );
-      })
-
-      .catch((error) => {
-        console.log("Error getting documents: ", error);
-      });
-  };
+    DadosSuporte();
+  }, []);
 
   return (
     <React.Fragment>
@@ -81,9 +54,6 @@ export function TableSuporte() {
         variant="outlined"
         size="small"
         type="text"
-        onChange={(event, value) => {
-          event.target.value === "" ? Dados() : Pesquisar(event.target.value);
-        }}
         fullWidth={true}
         InputProps={{
           startAdornment: <FindInPageIcon sx={{ marginRight: "2%" }} />,
@@ -106,7 +76,7 @@ export function TableSuporte() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {table.map((row) => (
+          {tablesuport.map((row) => (
             <TableRow key={row.id}>
               <TableCell>{row.dataagenda}</TableCell>
               <TableCell>{row.pt}</TableCell>

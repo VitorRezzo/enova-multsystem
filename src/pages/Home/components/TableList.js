@@ -5,22 +5,26 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import { firestore } from "../../../config/Firebase";
+import firebase, { firestore } from "../../../config/Firebase";
 
 export default function TableList(preventDefault) {
   const [table, setTable] = useState([]);
 
-  useEffect(() => {
-    let cont = 0;
-    const Dados = async () => {
-      await firestore
-        .collection("Servicos")
-        .limit(5)
-        .get()
-        .then((querySnapshot) => {
+  const DadosAtividades = () => {
+    const midnight = new Date(
+      firebase.firestore.Timestamp.now().toDate().setHours(0, 0, 0, 0)
+    );
+    var contID = 0;
+    firestore
+      .collection("Servicos")
+      .where("DataRegistro", ">=", midnight)
+      .limit(4)
+      .orderBy("DataRegistro", "desc")
+      .onSnapshot((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
           setTable(
             querySnapshot.docs.map((doc) => ({
-              id: cont++,
+              id: contID++,
               dataagenda: doc.data().DataAgenda,
               pt: doc.data().PT,
               solicitante: doc.data().Solicitante,
@@ -30,14 +34,13 @@ export default function TableList(preventDefault) {
               status: doc.data().Status,
             }))
           );
-        })
-        .catch((error) => {
-          console.log("Error getting documents: ", error);
         });
-    };
+      });
+  };
 
-    Dados();
-  }, [table]);
+  useEffect(() => {
+    DadosAtividades();
+  }, []);
 
   return (
     <React.Fragment>
@@ -49,7 +52,7 @@ export default function TableList(preventDefault) {
             <TableCell>Solicitante</TableCell>
             <TableCell>Responsavel</TableCell>
             <TableCell>Tipo</TableCell>
-            <TableCell>Problema Descrito</TableCell>
+            <TableCell>Problema Descrito </TableCell>
             <TableCell>Status</TableCell>
           </TableRow>
         </TableHead>

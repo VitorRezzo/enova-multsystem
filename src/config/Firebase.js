@@ -5,12 +5,12 @@ import "firebase/database"; // for realtime database
 import "firebase/firestore"; // for cloud firestore
 
 const firebaseConfig = {
-  apiKey: "AIzaSyD0OEfY0R-x3tM-2iFVd3jnwBrzFYOruBc",
-  authDomain: "enovaenergia-d6e83.firebaseapp.com",
-  projectId: "enovaenergia-d6e83",
-  storageBucket: "enovaenergia-d6e83.appspot.com",
-  messagingSenderId: "1052412287659",
-  appId: "1:1052412287659:web:61a6ae2c8c140a00d2b5ee",
+  apiKey: "AIzaSyA05d8DnBkTTls4TLuHNKvP_n8N1BoOjqs",
+  authDomain: "enovaenegia.firebaseapp.com",
+  projectId: "enovaenegia",
+  storageBucket: "enovaenegia.appspot.com",
+  messagingSenderId: "531312469072",
+  appId: "1:531312469072:web:34abf503807179e87b9d55",
 };
 
 firebase.initializeApp(firebaseConfig);
