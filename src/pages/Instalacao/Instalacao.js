@@ -11,36 +11,28 @@ import Container from "@material-ui/core/Container";
 import Autocomplete from "@material-ui/core/Autocomplete";
 import Paper from "@material-ui/core/Paper";
 import Alert from "@material-ui/core/Alert";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import Tooltip from "@material-ui/core/Tooltip";
+import { Input, Fab } from "@material-ui/core";
 
 import DateTimePicker from "@material-ui/lab/DateTimePicker";
 import AdapterDateFns from "@material-ui/lab/AdapterDateFns";
 import { ptBR } from "date-fns/locale";
 import LocalizationProvider from "@material-ui/lab/LocalizationProvider";
 
+import InsertDriveFileOutlinedIcon from "@material-ui/icons/InsertDriveFileOutlined";
+
 import HeaderWind from "../../components/HeaderWind";
-import { TableSuporte } from "./components/TableSuporte";
 import { TextFieldIU } from "../../components/TextFieldStyled";
 import { useGlobalUse } from "../../components/GlobalUse";
 
-function Suporte() {
-  var ListProblema = [
-    { problema: "Goteira" },
-    { problema: "Manutenção de telhado" },
-    { problema: "Monitoramento offline" },
-    { problema: "Datalloger desconfigurado" },
-    { problema: "Fonte datalloger queimado" },
-    { problema: "Smartdongle desconfigurado" },
-    { problema: "Inversor com falha" },
-    { problema: "Inversor com barulho" },
-    { problema: "Visita Diagnostico" },
-    { problema: "Limpeza de Paineis" },
-    { problema: "Outro" },
-  ];
+function Instalacao() {
   const [name, setName] = useState([]);
   const [data, setData] = useState();
-  const { userLog } = useGlobalUse();
+  const { userLog, userId } = useGlobalUse();
   const [msgalert, setMsgalert] = useState(true);
   const [showmsg, setShowMgs] = useState(false);
+  const [arquivos, setArquivos] = useState([]);
 
   const SelectUser = () => {
     firestore.collection("USERS").onSnapshot((querySnapshot) => {
@@ -63,25 +55,46 @@ function Suporte() {
     setShowMgs(false);
   }
 
+  ///Listar arquivos do input file
+  const ListArquivos = (arquivo) => {
+    for (let i = 0; i < arquivo.length; i++) {
+      const File = arquivo[i];
+      File["id"] = Math.random();
+      setArquivos((prevState) => [...prevState, File]);
+    }
+  };
+
+  //upload para firebse storage
+  const upload = (e) => {
+    if (arquivos == null) return;
+    arquivos.forEach((file) => {
+      firebase
+        .storage()
+        .ref(`/${e.target.pt.value}/${userId}/${file.name}`)
+        .put(file);
+    });
+  };
+
   const Submit = (e) => {
     e.preventDefault();
 
     try {
       firestore.collection("Servicos").add({
-        Atividade: "Suporte",
-        OS: e.target.os.value,
+        Atividade: "Instalacao",
         PT: e.target.pt.value,
         Solicitante: userLog,
         Responsavel: e.target.responsavel.value,
         DataAgenda: e.target.data.value,
         Cliente: e.target.cliente.value,
-        Instrucoes: e.target.instrucoes.value,
-        Problemas: e.target.problemas.value,
+        Inversor: e.target.inversor.value,
+        Paineis: e.target.paineis.value,
         Endereco: e.target.endereco.value,
+        instrucoes: e.target.instrucoes.value,
         Localizacao: e.target.localizacao.value,
         DataRegistro: firebase.firestore.Timestamp.now(),
         Status: "Abertos",
       });
+      upload(e);
       setMsgalert(true);
     } catch (error) {
       setMsgalert(false);
@@ -97,23 +110,11 @@ function Suporte() {
         width: "100vw",
       }}
     >
-      <HeaderWind nameWind="Suporte" type="drag" />
+      <HeaderWind nameWind="Instalação" type="drag" />
 
       <Container component="form" onSubmit={Submit} sx={{ marginTop: "1%" }}>
         <Grid container spacing={0.8} sx={{ overflowY: "auto" }}>
-          <Grid item xs={3}>
-            <TextFieldIU
-              variant="outlined"
-              type="text"
-              label="OS"
-              name="os"
-              size="small"
-              required={true}
-              fullWidth={true}
-            />
-          </Grid>
-
-          <Grid item xs={3}>
+          <Grid item xs={4}>
             <TextFieldIU
               variant="outlined"
               type="text"
@@ -125,12 +126,46 @@ function Suporte() {
             />
           </Grid>
 
-          <Grid item xs={6}>
+          <Grid item xs={4}>
             <TextFieldIU
               variant="outlined"
               type="text"
               label="Cliente"
               name="cliente"
+              size="small"
+              required={true}
+              fullWidth={true}
+            />
+          </Grid>
+
+          <Grid item xs={4}>
+            <TextFieldIU
+              variant="outlined"
+              type="text"
+              label="Contato"
+              name="contato"
+              size="small"
+              required={true}
+              fullWidth={true}
+            />
+          </Grid>
+          <Grid item xs={4}>
+            <TextFieldIU
+              variant="outlined"
+              type="text"
+              label="Inversor"
+              name="inversor"
+              size="small"
+              required={true}
+              fullWidth={true}
+            />
+          </Grid>
+          <Grid item xs={4}>
+            <TextFieldIU
+              variant="outlined"
+              type="text"
+              label="Paineis"
+              name="paineis"
               size="small"
               required={true}
               fullWidth={true}
@@ -198,22 +233,6 @@ function Suporte() {
             />
           </Grid>
 
-          <Grid item xs={9}>
-            <Autocomplete
-              options={ListProblema.map((introw) => introw.problema)}
-              renderInput={(params) => (
-                <TextFieldIU
-                  {...params}
-                  variant="outlined"
-                  label="Problemas"
-                  name="problemas"
-                  size="small"
-                  required={true}
-                />
-              )}
-            />
-          </Grid>
-
           <Grid item xs={12}>
             <TextFieldIU
               variant="outlined"
@@ -225,6 +244,43 @@ function Suporte() {
               fullWidth={true}
               required={true}
               sx={{ maxHeight: "170px" }}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <label htmlFor="arquivos">
+                      <Input
+                        style={{ display: "none" }}
+                        name="arquivos"
+                        id="arquivos"
+                        type="file"
+                        inputProps={{ multiple: true }}
+                        onChange={(e) => ListArquivos(e.target.files)}
+                      />
+                      <Tooltip
+                        title={
+                          arquivos.length > 0
+                            ? arquivos.map((row) => row.name + ", ")
+                            : "vazio"
+                        }
+                      >
+                        <Fab
+                          color={arquivos.length <= 0 ? "" : "primary"}
+                          size="small"
+                          component="span"
+                          aria-label="add"
+                          onKeyDown={(e) => {
+                            if (e.keyCode === 46) {
+                              setArquivos("");
+                            }
+                          }}
+                        >
+                          <InsertDriveFileOutlinedIcon />
+                        </Fab>
+                      </Tooltip>
+                    </label>
+                  </InputAdornment>
+                ),
+              }}
             />
           </Grid>
         </Grid>
@@ -282,12 +338,10 @@ function Suporte() {
             borderRadius: "2px",
           }}
           elevation={0}
-        >
-          <TableSuporte />
-        </Paper>
+        ></Paper>
       </Container>
     </Box>
   );
 }
 
-export default Suporte;
+export default Instalacao;

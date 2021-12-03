@@ -109,7 +109,9 @@ export const ListMenu = () => {
           <MenuItem onClick={() => window.electron.opensuporteWindow()}>
             Suporte
           </MenuItem>
-          <MenuItem>Instalação</MenuItem>
+          <MenuItem onClick={() => window.electron.openinstalacaoWindow()}>
+            Instalação
+          </MenuItem>
         </Menu>
       </ListItem>
 

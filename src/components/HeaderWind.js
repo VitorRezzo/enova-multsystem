@@ -39,6 +39,9 @@ export default function HeaderWind({ type, nameWind }, props) {
       case "UserCad":
         window.electron.closeuserCadWindow();
         break;
+      case "Instalação":
+        window.electron.closeinstalacaoWindow();
+        break;
       default:
         window.electron.closeWindow();
     }
@@ -54,6 +57,9 @@ export default function HeaderWind({ type, nameWind }, props) {
         break;
       case "Suporte":
         window.electron.minsuporteWindow();
+        break;
+      case "Instalação":
+        window.electron.mininstalacaoWindow();
         break;
       case "UserCad":
         window.electron.minusercadWindow();

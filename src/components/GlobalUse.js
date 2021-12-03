@@ -10,6 +10,7 @@ export function useGlobalUse() {
 
 export function GlobalUseProvider({ children }) {
   const [userLog, setUserLog] = useState("");
+  const [userId, setUserId] = useState("");
 
   const GetNomeUser = (uid) => {
     firestore
@@ -30,12 +31,14 @@ export function GlobalUseProvider({ children }) {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         GetNomeUser(user.uid);
+        setUserId(user.uid);
       }
     });
   }, []);
 
   const value = {
     userLog,
+    userId,
   };
 
   return (

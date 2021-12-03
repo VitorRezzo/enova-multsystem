@@ -8,6 +8,7 @@ const isDev = require("electron-is-dev");
 
 let loginWindow;
 let suporteWindow;
+let instalacaoWindow;
 let homeWindow;
 let userCadWindow;
 
@@ -38,6 +39,21 @@ function createWindow() {
   });
 
   suporteWindow = new BrowserWindow({
+    width: 850,
+    backgroundColor: "#011126",
+    height: 680,
+    parent: homeWindow,
+    frame: false,
+    show: false,
+    resizable: false,
+    webPreferences: {
+      contextIsolation: true,
+      enableRemoteModule: false,
+      preload: path.join(__dirname, "preload.js"),
+    },
+  });
+
+  instalacaoWindow = new BrowserWindow({
     width: 850,
     backgroundColor: "#011126",
     height: 680,
@@ -84,6 +100,12 @@ function createWindow() {
       : `file://${path.join(__dirname, "../build/index.html")}`
   );
 
+  instalacaoWindow.loadURL(
+    isDev
+      ? "http://localhost:3000/instalacao"
+      : `file://${path.join(__dirname, "../build/index.html")}`
+  );
+
   userCadWindow.loadURL(
     isDev
       ? "http://localhost:3000/UserCad"
@@ -119,6 +141,10 @@ ipcMain.on("min-suporteWindow", () => {
   suporteWindow.minimize();
 });
 
+ipcMain.on("min-instalacaoWindow", () => {
+  instalacaoWindow.minimize();
+});
+
 ipcMain.on("min-userCadWindow", () => {
   userCadWindow.minimize();
 });
@@ -130,6 +156,10 @@ ipcMain.on("close-AppWindow", () => {
 
 ipcMain.on("close-suporteWindow", () => {
   suporteWindow.hide();
+});
+
+ipcMain.on("close-instalacaoWindow", () => {
+  instalacaoWindow.hide();
 });
 
 ipcMain.on("close-userCadWindow", () => {
@@ -151,6 +181,10 @@ ipcMain.on("back-loginWindow", () => {
 
 ipcMain.on("open-suporteWindow", () => {
   suporteWindow.show();
+});
+
+ipcMain.on("open-instalacaoWindow", () => {
+  instalacaoWindow.show();
 });
 
 ipcMain.on("open-userCadWindow", () => {

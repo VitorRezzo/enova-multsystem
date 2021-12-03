@@ -103,8 +103,8 @@ export default function Home() {
         sx={{
           mt: 2,
           mb: 2,
-          marginLeft: [openDrawer ? "15%" : "25%"],
-          width: [openDrawer ? `calc(50% + ${300}px)` : `calc(40% + ${300}px)`],
+          marginLeft: [openDrawer ? "10%" : "20%"],
+          width: [openDrawer ? `calc(50% + ${500}px)` : `calc(40% + ${400}px)`],
           transition: theme.transitions.create(["width", "margin"], {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
@@ -112,7 +112,7 @@ export default function Home() {
         }}
       >
         <Grid container spacing={3}>
-          <Grid item xs={7}>
+          <Grid item xs={6}>
             <Paper
               sx={{
                 p: 2,
@@ -128,7 +128,7 @@ export default function Home() {
             </Paper>
           </Grid>
 
-          <Grid item sx={{ marginLeft: "8%" }} xs={4}>
+          <Grid item xs={6}>
             <Paper
               sx={{
                 p: 2,
@@ -150,7 +150,7 @@ export default function Home() {
                 p: 2,
                 display: "flex",
                 flexDirection: "column",
-                height: 300,
+                height: 315,
               }}
             >
               <Typography color="primary" variant="h6" component="div">

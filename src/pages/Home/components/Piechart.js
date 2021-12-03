@@ -1,10 +1,10 @@
 import React from "react";
-import { PieChart, Pie, Cell,Tooltip, ResponsiveContainer } from "recharts";
+import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
 
 export const Piechart = () => {
   const data = [
     { name: "Abertos", value: 50 },
-    { name: "Atendidos", value: 20},
+    { name: "Atendidos", value: 20 },
     { name: "Pendentes", value: 6 },
     { name: "Não Atendidos", value: 4 },
   ];
@@ -39,12 +39,8 @@ export const Piechart = () => {
   };
 
   return (
-      
-         
-      
-    <ResponsiveContainer  width="100%" height="100%">
-       
-      <PieChart  width={400} height={400}>
+    <ResponsiveContainer width="100%" height="100%">
+      <PieChart width={400} height={400}>
         <Pie
           data={data}
           cx="50%"
@@ -52,20 +48,14 @@ export const Piechart = () => {
           labelLine={true}
           label={renderCustomizedLabel}
           outerRadius={80}
-
           dataKey="value"
         >
           {data.map((entry, index) => (
             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
           ))}
-         
-          
-       </Pie>
-       <Tooltip />
-      
+        </Pie>
+        <Tooltip />
       </PieChart>
-        
     </ResponsiveContainer>
-   
   );
 };
