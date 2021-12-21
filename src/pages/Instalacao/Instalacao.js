@@ -29,7 +29,7 @@ import { useGlobalUse } from "../../components/GlobalUse";
 function Instalacao() {
   const [name, setName] = useState([]);
   const [data, setData] = useState();
-  const { userLog, userId } = useGlobalUse();
+  const { userLog } = useGlobalUse();
   const [msgalert, setMsgalert] = useState(true);
   const [showmsg, setShowMgs] = useState(false);
   const [arquivos, setArquivos] = useState([]);
@@ -65,20 +65,35 @@ function Instalacao() {
   };
 
   //upload para firebse storage
-  const upload = (e) => {
-    if (arquivos == null) return;
+  const upload = async (e) => {
+    if (arquivos.length <= 0) return;
+
     arquivos.forEach((file) => {
-      firebase
+      const storageRef = firebase
         .storage()
-        .ref(`/${e.target.pt.value}/${userId}/${file.name}`)
-        .put(file);
+        .ref(`Instalacao/${e.target.pt.value}/${e.target.responsavel.value}/`)
+        .child(`${file.name}`);
+
+      //Upload file
+      const task = storageRef.put(file);
+      //Update progress bar
+      task.on(
+        "state_changed",
+        function progress(snapshot) {
+          var percentage =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        },
+        function error(err) {},
+        async function complete() {}
+      );
     });
   };
 
-  const Submit = (e) => {
+  const Submit = async (e) => {
     e.preventDefault();
 
     try {
+      upload(e);
       firestore.collection("Servicos").add({
         Atividade: "Instalacao",
         PT: e.target.pt.value,
@@ -89,14 +104,14 @@ function Instalacao() {
         Inversor: e.target.inversor.value,
         Paineis: e.target.paineis.value,
         Endereco: e.target.endereco.value,
-        instrucoes: e.target.instrucoes.value,
+        Instrucoes: e.target.instrucoes.value,
         Localizacao: e.target.localizacao.value,
         DataRegistro: firebase.firestore.Timestamp.now(),
         Status: "Abertos",
       });
-      upload(e);
       setMsgalert(true);
     } catch (error) {
+      console.log(error);
       setMsgalert(false);
     }
 
@@ -270,7 +285,7 @@ function Instalacao() {
                           aria-label="add"
                           onKeyDown={(e) => {
                             if (e.keyCode === 46) {
-                              setArquivos("");
+                              setArquivos([]);
                             }
                           }}
                         >
